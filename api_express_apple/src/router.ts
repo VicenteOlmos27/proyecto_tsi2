@@ -1,12 +1,17 @@
 import { Router } from "express";
-import { getClientes } from "./handlers/clientes";
 import { agregarProductos, borrarProductos, editarProductos, getProductoById, getProductos, getProductosConCantidadProductos } from "./handlers/productos";
 import { agregarCategoria, borrarCategoria, editarCategoria, getCategoria, getCategoriaById, getCategoriaConCantidadProductos } from "./handlers/categorias";
+import { crearCliente, login } from "./handlers/clientes";
+import { verificarTokens } from "./middleware/verificarTokens";
 
 const router = Router()
 
 //ENPOINT CLIENTES
-router.get("/clientes", getClientes)
+router.post("/login", login)
+router.post("/clientes/crear", crearCliente)
+
+//MIDDLEWARE DESDE AQUI
+router.use(verificarTokens)
 
 //ENPOINT CATEGORIAS
 router.get("/categorias", getCategoria) //ENPOINT MOSTRAR TODAS LAS CATEGORIAS
@@ -23,7 +28,5 @@ router.get("/productos/:id", getProductoById) //ENPOINT DE PRODUCTOS SEGUN SU ID
 router.post("/productos", agregarProductos) //ENPOINT AGREGAR PRODUCTOS
 router.put("/productos/:id", editarProductos) //ENPOINT EDITAR PRODUCTOS
 router.delete("/productos/:id", borrarProductos) //ENPOINT BORRAR PRODUCTOS
-
-
 
 export default router
