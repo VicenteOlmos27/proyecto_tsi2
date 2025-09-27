@@ -4,15 +4,17 @@ import { agregarCategoria, borrarCategoria, editarCategoria, getCategoria, getCa
 import { crearCliente, login } from "./handlers/clientes";
 import { verificarTokens } from "./middleware/verificarTokens";
 import { borrarPedido, crearPedido, getPedidoById, getPedidosActivos, getPedidosEntregados, registrarEntrega, registrarEnvio } from "./handlers/pedido";
+import { contenidoSegunRol, loginAdmin } from "./handlers/usuario";
 
 const router = Router()
 
-//ENPOINT CLIENTES
+//ENPOINT LOGIN
+router.post("/login/admin", loginAdmin)
 router.post("/login", login)
 router.post("/clientes/crear", crearCliente)
 
 //MIDDLEWARE DESDE AQUI
-router.use(verificarTokens)
+router.use(verificarTokens, contenidoSegunRol)
 
 //ENPOINT CATEGORIAS
 router.get("/categorias", getCategoria) //ENPOINT MOSTRAR TODAS LAS CATEGORIAS

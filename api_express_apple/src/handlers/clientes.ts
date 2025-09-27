@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Cliente from "../models/Cliente";
+import Usuario from "../models/Usuario";
 
 export const login = async (request: Request, response: Response) => {
   const { rutCliente, contrasena } = request.body;
@@ -49,6 +50,7 @@ export const crearCliente = async (request: Request, response: Response) => {
         .json({ error: "Este usuario ya está registrado" });
     }
 
+    // Crear cliente
     const nuevoCliente = await Cliente.create({
       rutCliente,
       nombreApellido,
@@ -58,12 +60,21 @@ export const crearCliente = async (request: Request, response: Response) => {
       contrasena,
     });
 
+    // Crear usuario asociado
+    const hash = await bcrypt.hash(contrasena, 10);
+    await Usuario.create({
+      cod_usuario: rutCliente,
+      nombre_usuario: nombreApellido,
+      contraseña: hash,
+      tipo_usuario: 0, // cliente
+    });
+
     response.status(201).json({
-      message: "Usuario creado correctamente",
-      cliente: nuevoCliente,
+      message: "Cliente creado correctamente",
     });
   } catch (error) {
-    console.error("Error al registrar el usuario: ", error);
+    console.error("Error al registrar el cliente/usuario: ", error);
     response.status(500).json({ error: "Error interno del servidor" });
   }
 };
+
