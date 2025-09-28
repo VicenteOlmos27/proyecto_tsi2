@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-09-2025 a las 01:59:42
+-- Tiempo de generación: 28-09-2025 a las 23:38:32
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -80,21 +80,27 @@ INSERT INTO `categorias` (`cod_categoria`, `nombre`, `descripcion`) VALUES
 --
 
 CREATE TABLE `cliente` (
-  `rut_cliente` varchar(10) NOT NULL,
+  `cod_usuario` varchar(10) NOT NULL,
   `nombre_apellido` varchar(20) DEFAULT NULL,
   `correo` varchar(40) DEFAULT NULL,
   `direccion` varchar(40) DEFAULT NULL,
   `telefono` varchar(12) DEFAULT NULL,
-  `contrasena` varchar(100) NOT NULL
+  `contraseña` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`rut_cliente`, `nombre_apellido`, `correo`, `direccion`, `telefono`, `contrasena`) VALUES
+INSERT INTO `cliente` (`cod_usuario`, `nombre_apellido`, `correo`, `direccion`, `telefono`, `contraseña`) VALUES
+('00958362-4', 'Seba KarPEmain', 'Isbeaa@gmail.com', 'Valparaiso', '984637721', '$2b$10$u2seDefIDfob1KITkQcwa.EBLZPbV4T.ldESCSOTq4wSLKv8rHHLW'),
 ('12345678-9', 'Juan Pérez', 'juan@example.com', 'Calle Falsa 123', '912345678', '$2b$10$5yEwLZuCibSg1pCUIA2rcO.YhgRUgAoCMLN35O7FKYBgTgodO7Nru'),
-('26482684-1', 'Vixito Olmos', 'v@gmail.com', 'tumama 23', '974820412', '$2b$10$kU/kwlpAck9RdGwcRDRFueOd00h4x9pwywOLfNsdhXVCX/F6bqdY6');
+('21347835-9', 'Floripondia Maldonad', 'flori@gmail.com', 'santiago', '839274401', '$2b$10$ieqpq94VNlB2YU3CkJtAf.LtZj1aLE/8ynV/DEZ8Eezt6UxeUzGnO'),
+('22292570-3', 'Nicole Castillo', 'nico@gmail.com', 'placilla city', '874629472', '$2b$10$t3Wzt/yTaAa7Dt9LkSEjteOIPlbNpI0Ea/OE6No3NK84AMK7fhC7K'),
+('26482684-1', 'Vixito Olmos', 'v@gmail.com', 'tumama 23', '974820412', '$2b$10$kU/kwlpAck9RdGwcRDRFueOd00h4x9pwywOLfNsdhXVCX/F6bqdY6'),
+('34874653-4', 'Jennifer Reymer', 'Jenny@gmail.com', 'playa ancha', '847020013', '$2b$10$mX5D3L7pGuMcARN7XF/O9OhkRsvi/SY/goa6YsiqUf5aeUq0PtWQG'),
+('73095672-4', 'Isabella Karmain', 'Isa@gmail.com', 'Valparaiso', '984637721', '$2b$10$cqejUYaVQtVZxKJUWV1YUua79UMKAQiOeOo70kUwLLQP7OGF3bbv.'),
+('75492048-2', 'Juana Bondado', 'juani@gmail.com', 'playa ancha', '948376612', '$2b$10$05eMMnxnR87tJkLzgj3pCO.nN2V6jyrfmTdPxP949Zztv3WcrX0MS');
 
 -- --------------------------------------------------------
 
@@ -103,7 +109,7 @@ INSERT INTO `cliente` (`rut_cliente`, `nombre_apellido`, `correo`, `direccion`, 
 --
 
 CREATE TABLE `detalle_pedido` (
-  `cod_detalle` varchar(10) NOT NULL,
+  `cod_usuario` varchar(10) NOT NULL,
   `cantidad` tinyint(4) NOT NULL,
   `total_unitario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -187,6 +193,16 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`cod_usuario`, `nombre_usuario`, `contraseña`, `tipo_usuario`) VALUES
+('00958362-4', 'Seba KarPEmain', '$2b$10$5ZQqKxgjLZcz.OB0dPi9X.a7spxfLXGo1w2mBzEmFMWDRFmMcq5G2', 0),
+('34874653-4', 'Jennifer Reymer', '$2b$10$RcdNy0dyf5PUBNhWb5p93OdEjO4AiIEpOVkHOASgyfG4ZeyX8GlI.', 0),
+('73095672-4', 'Isabella Karmain', '$2b$10$TcIFALyyhl8eleU6Ec7HG.DaQJq6G6DNVogc2GKtMi81gML3.NCyO', 0),
+('75492048-2', 'Juana Bondado', '$2b$10$2P/yAyMI.DQbN8arsyCMBOxWPAsXwXeKH6H8WcVSIPfgKN5k2b3m2', 1);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -215,13 +231,13 @@ ALTER TABLE `categorias`
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`rut_cliente`);
+  ADD PRIMARY KEY (`cod_usuario`);
 
 --
 -- Indices de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  ADD PRIMARY KEY (`cod_detalle`);
+  ADD PRIMARY KEY (`cod_usuario`);
 
 --
 -- Indices de la tabla `pedido`
