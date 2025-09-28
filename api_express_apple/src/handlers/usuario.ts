@@ -41,7 +41,7 @@ export const loginAdmin = async (Request: Request, Response: Response) => {
 
 
 export const contenidoSegunRol = async (Request: Request, Response: Response) => {
-  const { tipo_usuario } = Request.body;
+  const { tipo_usuario } = Request.usuario!;
 
   if (tipo_usuario === 1) {
     Response.json({

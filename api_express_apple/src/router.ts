@@ -14,7 +14,7 @@ router.post("/login", login)
 router.post("/clientes/crear", crearCliente)
 
 //MIDDLEWARE DESDE AQUI
-router.use(verificarTokens, contenidoSegunRol)
+router.use(verificarTokens)
 
 //ENPOINT CATEGORIAS
 router.get("/categorias", getCategoria) //ENPOINT MOSTRAR TODAS LAS CATEGORIAS

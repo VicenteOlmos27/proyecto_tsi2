@@ -14,4 +14,5 @@
     "emitDecoratorMetadata": true //habilita decoradores para modelos
   },
   "include": ["src/**/*.ts"] //compilador debe incluir todos los archivos .ts ubicados en src y sus subdirectorios
+  
 }
