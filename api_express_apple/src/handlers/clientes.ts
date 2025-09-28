@@ -6,16 +6,16 @@ import Cliente from "../models/Cliente";
 import Usuario from "../models/Usuario";
 
 export const login = async (request: Request, response: Response) => {
-  const { rutCliente, contrasena } = request.body;
+  const { codUsuario, contraseña } = request.body;
   const SECRET = process.env.SECRET_KEY;
 
   try {
-    const cliente = await Cliente.findByPk(rutCliente);
-    if (!cliente || !bcrypt.compareSync(contrasena, cliente.contrasena)) {
+    const cliente = await Cliente.findByPk(codUsuario);
+    if (!cliente || !bcrypt.compareSync(contraseña, cliente.contraseña)) {
       return response.status(401).json({ error: "Credenciales incorrectas" });
     }
 
-    const token = jwt.sign({ rut: cliente.rutCliente }, SECRET!, {
+    const token = jwt.sign({ rut: cliente.codUsuario }, SECRET!, {
       expiresIn: "1h",
     });
 
@@ -28,22 +28,22 @@ export const login = async (request: Request, response: Response) => {
 
 export const crearCliente = async (request: Request, response: Response) => {
   const {
-    rutCliente,
+    codUsuario,
     nombreApellido,
     correo,
     direccion,
     telefono,
-    contrasena,
+    contraseña,
   } = request.body;
 
-  if (!rutCliente || !contrasena) {
+  if (!codUsuario || !contraseña) {
     return response
       .status(400)
       .json({ error: "Rut y Contraseña son obligatorios" });
   }
 
   try {
-    const existe = await Cliente.findByPk(rutCliente);
+    const existe = await Cliente.findByPk(codUsuario);
     if (existe) {
       return response
         .status(409)
@@ -52,18 +52,18 @@ export const crearCliente = async (request: Request, response: Response) => {
 
     // Crear cliente
     const nuevoCliente = await Cliente.create({
-      rutCliente,
+      codUsuario,
       nombreApellido,
       correo,
       direccion,
       telefono,
-      contrasena,
+      contraseña,
     });
 
     // Crear usuario asociado
-    const hash = await bcrypt.hash(contrasena, 10);
+    const hash = await bcrypt.hash(contraseña, 10);
     await Usuario.create({
-      cod_usuario: rutCliente,
+      cod_usuario: codUsuario,
       nombre_usuario: nombreApellido,
       contraseña: hash,
       tipo_usuario: 0, // cliente

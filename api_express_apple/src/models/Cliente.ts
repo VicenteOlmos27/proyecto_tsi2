@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 
 @Table({tableName: "cliente"})
 class Cliente extends Model{
-    @Column({type: DataType.STRING(10), primaryKey: true, allowNull: false, field:"rut_cliente"})
-    declare rutCliente: string
+    @Column({type: DataType.STRING(10), primaryKey: true, allowNull: false, field:"cod_usuario"})
+    declare codUsuario: string
 
     @Column({type: DataType.STRING(20), field: "nombre_apellido"})
     declare nombreApellido: string
@@ -19,11 +19,11 @@ class Cliente extends Model{
     declare telefono: string
 
     @Column({type: DataType.STRING(100), allowNull:false})
-    declare contrasena: string
+    declare contraseña: string
 
     @BeforeCreate
     static async hashPassword(cliente: Cliente){
-        cliente.contrasena = await bcrypt.hash(cliente.contrasena, 10)
+        cliente.contraseña = await bcrypt.hash(cliente.contraseña, 10)
     }
 }
 

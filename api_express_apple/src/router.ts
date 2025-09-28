@@ -4,7 +4,7 @@ import { agregarCategoria, borrarCategoria, editarCategoria, getCategoria, getCa
 import { crearCliente, login } from "./handlers/clientes";
 import { verificarTokens } from "./middleware/verificarTokens";
 import { borrarPedido, crearPedido, getPedidoById, getPedidosActivos, getPedidosEntregados, registrarEntrega, registrarEnvio } from "./handlers/pedido";
-import { contenidoSegunRol, loginAdmin } from "./handlers/usuario";
+import { loginAdmin } from "./handlers/usuario";
 
 const router = Router()
 
